@@ -1536,15 +1536,15 @@
             </div>
         </section>
         
-        <!-- Morphic Resonance Section -->
+        <!-- Pattern Transfer Section -->
         <section class="morphic-section">
             <div class="section-header" style="text-align: center;">
-                <div class="section-label">Morphic Resonance</div>
-                <h2 class="section-title">Pattern Transfer Without Data Link</h2>
+                <div class="section-label">Pattern Transfer</div>
+                <h2 class="section-title">Outbreak Detection Without Data Link</h2>
             </div>
             
             <p style="text-align: center; color: rgba(255,255,255,0.6); max-width: 800px; margin: 1rem auto 2rem;">
-                When County A experiences an outbreak pattern, County B — with similar habitat but <strong style="color: var(--red);">no data connection</strong> — becomes sensitized to the same pattern through geometric resonance in semantic space.
+                When County A experiences an outbreak pattern, County B — with similar habitat but <strong style="color: var(--red);">no data connection</strong> — can be flagged as high risk. The system detects structural similarity between conditions, not correlation.
             </p>
             
             <div class="morphic-demo">
@@ -1564,11 +1564,11 @@
                     <div class="morphic-arrow">⟷</div>
                     <div class="morphic-label">
                         NO DATA LINK<br>
-                        GEOMETRIC<br>
-                        RESONANCE
+                        PATTERN<br>
+                        TRANSFER
                     </div>
                     <div class="morphic-match-box">
-                        <div class="morphic-match-label">MORPHIC_MATCH</div>
+                        <div class="morphic-match-label">TRANSFER_SCORE</div>
                         <div class="morphic-match-value" id="morphicScore">—</div>
                     </div>
                 </div>
@@ -1587,8 +1587,8 @@
             </div>
             
             <div class="run-section">
-                <button class="btn btn-primary" onclick="runMorphicAnalysis()">
-                    ▶ Compute Morphic Resonance
+                <button class="btn btn-primary" onclick="runPatternTransfer()">
+                    ▶ Detect Pattern Transfer
                 </button>
             </div>
             
@@ -1984,9 +1984,9 @@
             btn.innerHTML = '▶ Run Swarm Analysis';
         }
         
-        // ============ MORPHIC RESONANCE ============
+        // ============ PATTERN TRANSFER ============
         
-        async function runMorphicAnalysis() {
+        async function runPatternTransfer() {
             const hunterdonInput = document.getElementById('hunterdonInput').value;
             const sussexInput = document.getElementById('sussexInput').value;
             
@@ -2012,26 +2012,26 @@
                 const sussexScore = sussexResult.all?.[0]?.score || sussexResult.top?.[0]?.score || 0;
                 document.getElementById('sussexScore').textContent = sussexScore.toFixed(3);
                 
-                // Compute morphic match (similarity of patterns)
-                const morphicResult = await callArbiter(hunterdonInput, [sussexInput]);
-                const morphicScore = morphicResult.all?.[0]?.score || morphicResult.top?.[0]?.score || 0;
-                document.getElementById('morphicScore').textContent = morphicScore.toFixed(3);
+                // Compute pattern transfer (similarity of conditions)
+                const transferResult = await callArbiter(hunterdonInput, [sussexInput]);
+                const transferScore = transferResult.all?.[0]?.score || transferResult.top?.[0]?.score || 0;
+                document.getElementById('morphicScore').textContent = transferScore.toFixed(3);
                 
                 // Show insight
                 document.getElementById('morphicInsight').style.display = 'block';
                 document.getElementById('morphicInsightText').innerHTML = `
-                    <strong>Pattern transfer detected.</strong> Hunterdon's outbreak pattern (coherence: ${hunterdonScore.toFixed(3)}) resonates with Sussex's current state at <strong>${morphicScore.toFixed(3)}</strong> morphic match.
-                    Despite zero data link between counties, Sussex shows ${sussexScore.toFixed(3)} coherence with the outbreak signature.
-                    This geometric resonance — not data sharing — is how the system predicts outbreak spread. Sussex should be flagged HIGH RISK before any human cases appear.
+                    <strong>Pattern transfer detected.</strong> Hunterdon's outbreak signature (coherence: ${hunterdonScore.toFixed(3)}) matches Sussex's current conditions at <strong>${transferScore.toFixed(3)}</strong>.
+                    Despite zero data link between counties, Sussex shows ${sussexScore.toFixed(3)} coherence with the outbreak pattern.
+                    This is pattern transfer — structural similarity detection without shared data. Sussex should be flagged HIGH RISK before any human cases appear.
                 `;
                 
             } catch (error) {
-                console.error('Morphic analysis error:', error);
+                console.error('Pattern transfer error:', error);
                 alert('Error: ' + error.message);
             }
             
             btn.disabled = false;
-            btn.innerHTML = '▶ Compute Morphic Resonance';
+            btn.innerHTML = '▶ Detect Pattern Transfer';
         }
         
         // ============ TICK ID ============
