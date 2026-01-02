@@ -18,6 +18,8 @@
             --green: #10b981;
             --yellow: #f59e0b;
             --orange: #f97316;
+            --blue: #3b82f6;
+            --purple: #8b5cf6;
         }
         
         body {
@@ -30,11 +32,16 @@
         
         /* Header */
         .header {
-            padding: 2rem;
+            padding: 1.5rem 2rem;
             border-bottom: 1px solid rgba(255,255,255,0.1);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: sticky;
+            top: 0;
+            background: rgba(10,10,10,0.95);
+            backdrop-filter: blur(10px);
+            z-index: 100;
         }
         
         .logo {
@@ -50,9 +57,15 @@
             margin-left: 0.5rem;
         }
         
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
         .bill-badge {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             padding: 0.4rem 0.8rem;
             background: rgba(227,28,57,0.15);
             border: 1px solid rgba(227,28,57,0.3);
@@ -60,12 +73,35 @@
             letter-spacing: 0.05em;
         }
         
+        .live-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--green);
+        }
+        
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+        
         /* Hero */
         .hero {
-            padding: 4rem 2rem;
+            padding: 4rem 2rem 3rem;
             text-align: center;
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
+            position: relative;
         }
         
         .hero-label {
@@ -79,10 +115,10 @@
         
         .hero h1 {
             font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-size: clamp(2.2rem, 5vw, 4rem);
             font-weight: 500;
             margin-bottom: 1rem;
-            line-height: 1.2;
+            line-height: 1.15;
         }
         
         .hero h1 em {
@@ -93,8 +129,37 @@
         .hero-sub {
             font-size: 1.1rem;
             color: rgba(255,255,255,0.6);
-            max-width: 700px;
+            max-width: 750px;
+            margin: 0 auto 2rem;
+        }
+        
+        /* Stats Bar */
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            padding: 1.5rem;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.1);
+            max-width: 800px;
             margin: 0 auto;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--red);
+        }
+        
+        .stat-label {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.5);
+            margin-top: 0.25rem;
         }
         
         /* Main Content */
@@ -104,14 +169,108 @@
             padding: 2rem;
         }
         
-        /* Swarm Section */
-        .swarm-section {
-            margin-bottom: 4rem;
+        /* Scenario Selector */
+        .scenario-selector {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
         }
         
-        .section-header {
-            text-align: center;
+        .scenario-btn {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            padding: 0.75rem 1.25rem;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.15);
+            color: rgba(255,255,255,0.7);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .scenario-btn:hover {
+            border-color: rgba(255,255,255,0.3);
+            color: #fff;
+        }
+        
+        .scenario-btn.active {
+            border-color: var(--red);
+            background: rgba(227,28,57,0.1);
+            color: var(--red);
+        }
+        
+        /* Scenario Box */
+        .scenario-box {
+            background: linear-gradient(135deg, rgba(227,28,57,0.08) 0%, rgba(227,28,57,0.02) 100%);
+            border: 1px solid rgba(227,28,57,0.2);
+            padding: 1.5rem 2rem;
             margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+        
+        .scenario-icon {
+            font-size: 3rem;
+        }
+        
+        .scenario-content {
+            flex: 1;
+        }
+        
+        .scenario-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .scenario-badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            padding: 0.25rem 0.5rem;
+            background: var(--red);
+            color: #fff;
+            letter-spacing: 0.05em;
+        }
+        
+        .scenario-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+        }
+        
+        .scenario-desc {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.7);
+        }
+        
+        .scenario-meta {
+            display: flex;
+            gap: 2rem;
+            margin-top: 0.75rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.5);
+        }
+        
+        /* Two Column Layout */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        @media (max-width: 1100px) {
+            .two-col {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Section Headers */
+        .section-header {
+            margin-bottom: 1.5rem;
         }
         
         .section-label {
@@ -119,31 +278,24 @@
             font-size: 0.65rem;
             letter-spacing: 0.2em;
             text-transform: uppercase;
-            color: rgba(255,255,255,0.4);
+            color: var(--red);
             margin-bottom: 0.5rem;
         }
         
         .section-title {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             font-weight: 500;
         }
         
         /* Observer Grid */
         .observer-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            margin-bottom: 2rem;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
         }
         
-        @media (max-width: 900px) {
-            .observer-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        
-        @media (max-width: 600px) {
+        @media (max-width: 700px) {
             .observer-grid {
                 grid-template-columns: 1fr;
             }
@@ -152,12 +304,25 @@
         .observer-card {
             background: rgba(255,255,255,0.02);
             border: 1px solid rgba(255,255,255,0.1);
-            padding: 1.5rem;
+            padding: 1.25rem;
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .observer-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: transparent;
+            transition: background 0.3s;
         }
         
         .observer-card:hover {
-            border-color: var(--red);
+            border-color: rgba(255,255,255,0.2);
         }
         
         .observer-card.active {
@@ -165,37 +330,50 @@
             background: rgba(227,28,57,0.05);
         }
         
-        .observer-icon {
-            font-size: 2rem;
+        .observer-card.active::before {
+            background: var(--red);
+        }
+        
+        .observer-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
             margin-bottom: 0.75rem;
+        }
+        
+        .observer-icon {
+            font-size: 1.5rem;
+        }
+        
+        .observer-info {
+            flex: 1;
         }
         
         .observer-name {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.05em;
             color: var(--red);
-            margin-bottom: 0.5rem;
         }
         
         .observer-desc {
-            font-size: 0.85rem;
-            color: rgba(255,255,255,0.6);
-            margin-bottom: 1rem;
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.5);
         }
         
         .observer-input {
             width: 100%;
             background: rgba(0,0,0,0.3);
             border: 1px solid rgba(255,255,255,0.1);
-            padding: 0.75rem;
+            padding: 0.6rem;
             color: #fff;
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'Inter', sans-serif;
             font-size: 0.8rem;
             resize: vertical;
-            min-height: 80px;
+            min-height: 70px;
+            line-height: 1.5;
         }
         
         .observer-input:focus {
@@ -203,67 +381,148 @@
             border-color: var(--red);
         }
         
+        .observer-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 0.75rem;
+        }
+        
         .observer-score {
-            margin-top: 1rem;
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 0.5rem;
         }
         
         .score-value {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 600;
             color: var(--red);
         }
         
         .score-label {
-            font-size: 0.75rem;
-            color: rgba(255,255,255,0.5);
+            font-size: 0.65rem;
+            color: rgba(255,255,255,0.4);
         }
         
-        /* Scenario Box */
-        .scenario-box {
-            background: rgba(255,255,255,0.03);
+        .score-bar {
+            flex: 1;
+            height: 4px;
+            background: rgba(255,255,255,0.1);
+            margin-left: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .score-fill {
+            height: 100%;
+            background: var(--red);
+            transition: width 0.5s ease;
+        }
+        
+        /* Map Section */
+        .map-section {
+            background: rgba(255,255,255,0.02);
             border: 1px solid rgba(255,255,255,0.1);
             padding: 1.5rem;
-            margin-bottom: 2rem;
         }
         
-        .scenario-header {
+        .map-container {
+            position: relative;
+            background: linear-gradient(180deg, #0d1117 0%, #161b22 100%);
+            border: 1px solid rgba(255,255,255,0.1);
+            height: 400px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+        
+        .map-nj {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 280px;
+            height: 400px;
+        }
+        
+        .county {
+            position: absolute;
+            border: 1px solid rgba(255,255,255,0.2);
+            cursor: pointer;
+            transition: all 0.3s;
             display: flex;
             align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-        
-        .scenario-badge {
+            justify-content: center;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.65rem;
-            padding: 0.3rem 0.6rem;
-            background: var(--red);
-            color: #fff;
-            letter-spacing: 0.05em;
-        }
-        
-        .scenario-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.2rem;
-        }
-        
-        .scenario-desc {
-            font-size: 0.9rem;
+            font-size: 0.6rem;
             color: rgba(255,255,255,0.7);
-            line-height: 1.6;
         }
         
-        /* Cumulative Score */
-        .cumulative-section {
-            background: linear-gradient(135deg, rgba(227,28,57,0.1) 0%, rgba(227,28,57,0.05) 100%);
+        .county:hover {
+            border-color: #fff;
+            z-index: 10;
+        }
+        
+        .county.risk-low { background: rgba(16,185,129,0.2); }
+        .county.risk-medium { background: rgba(245,158,11,0.2); }
+        .county.risk-high { background: rgba(249,115,22,0.3); }
+        .county.risk-critical { background: rgba(227,28,57,0.4); }
+        .county.selected { border-color: var(--red); border-width: 2px; box-shadow: 0 0 20px rgba(227,28,57,0.5); }
+        
+        /* NJ County positions (simplified) */
+        .county-sussex { top: 5%; left: 30%; width: 25%; height: 12%; }
+        .county-passaic { top: 12%; left: 55%; width: 15%; height: 10%; }
+        .county-bergen { top: 8%; left: 70%; width: 18%; height: 12%; }
+        .county-warren { top: 17%; left: 15%; width: 20%; height: 12%; }
+        .county-morris { top: 20%; left: 40%; width: 22%; height: 12%; }
+        .county-essex { top: 22%; left: 62%; width: 14%; height: 10%; }
+        .county-hudson { top: 25%; left: 76%; width: 12%; height: 10%; }
+        .county-hunterdon { top: 32%; left: 18%; width: 20%; height: 14%; }
+        .county-somerset { top: 34%; left: 45%; width: 16%; height: 12%; }
+        .county-union { top: 35%; left: 62%; width: 14%; height: 10%; }
+        .county-middlesex { top: 45%; left: 50%; width: 20%; height: 12%; }
+        .county-mercer { top: 48%; left: 30%; width: 18%; height: 12%; }
+        .county-monmouth { top: 50%; left: 65%; width: 22%; height: 14%; }
+        .county-burlington { top: 58%; left: 35%; width: 25%; height: 16%; }
+        .county-ocean { top: 60%; left: 62%; width: 20%; height: 18%; }
+        .county-camden { top: 70%; left: 28%; width: 14%; height: 10%; }
+        .county-atlantic { top: 75%; left: 45%; width: 20%; height: 12%; }
+        .county-gloucester { top: 78%; left: 25%; width: 16%; height: 10%; }
+        .county-salem { top: 85%; left: 15%; width: 14%; height: 10%; }
+        .county-cumberland { top: 85%; left: 32%; width: 18%; height: 12%; }
+        .county-capemay { top: 88%; left: 52%; width: 15%; height: 10%; }
+        
+        .map-legend {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            font-size: 0.7rem;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .legend-color {
+            width: 12px;
+            height: 12px;
+        }
+        
+        .legend-color.low { background: rgba(16,185,129,0.4); }
+        .legend-color.medium { background: rgba(245,158,11,0.4); }
+        .legend-color.high { background: rgba(249,115,22,0.5); }
+        .legend-color.critical { background: rgba(227,28,57,0.6); }
+        
+        /* Cumulative Score Panel */
+        .cumulative-panel {
+            background: linear-gradient(135deg, rgba(227,28,57,0.15) 0%, rgba(227,28,57,0.05) 100%);
             border: 1px solid rgba(227,28,57,0.3);
             padding: 2rem;
             text-align: center;
-            margin-bottom: 2rem;
+            margin: 2rem 0;
         }
         
         .cumulative-label {
@@ -277,16 +536,17 @@
         
         .cumulative-value {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 4rem;
+            font-size: 5rem;
             font-weight: 600;
             color: var(--red);
             line-height: 1;
+            text-shadow: 0 0 60px rgba(227,28,57,0.5);
         }
         
         .cumulative-subtitle {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.3rem;
-            color: rgba(255,255,255,0.8);
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.7);
             margin-top: 0.5rem;
             font-style: italic;
         }
@@ -296,16 +556,301 @@
             align-items: center;
             gap: 0.5rem;
             margin-top: 1rem;
-            padding: 0.5rem 1rem;
+            padding: 0.6rem 1.2rem;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             font-weight: 600;
+            animation: riskPulse 2s infinite;
+        }
+        
+        @keyframes riskPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
         }
         
         .risk-low { background: rgba(16,185,129,0.2); color: var(--green); }
         .risk-medium { background: rgba(245,158,11,0.2); color: var(--yellow); }
         .risk-high { background: rgba(249,115,22,0.2); color: var(--orange); }
-        .risk-critical { background: rgba(227,28,57,0.2); color: var(--red); }
+        .risk-critical { background: rgba(227,28,57,0.3); color: var(--red); }
+        
+        /* Buttons */
+        .btn {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-primary {
+            background: var(--red);
+            color: #fff;
+        }
+        
+        .btn-primary:hover {
+            background: #c41830;
+            transform: translateY(-2px);
+        }
+        
+        .btn-primary:disabled {
+            background: rgba(227,28,57,0.3);
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .btn-secondary {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.15);
+        }
+        
+        .run-section {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .btn-run {
+            font-size: 1rem;
+            padding: 1rem 3rem;
+        }
+        
+        /* Insight Box */
+        .insight-box {
+            background: rgba(227,28,57,0.05);
+            border-left: 3px solid var(--red);
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .insight-box p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.15rem;
+            color: rgba(255,255,255,0.85);
+            line-height: 1.6;
+        }
+        
+        .insight-box strong {
+            color: var(--red);
+        }
+        
+        /* Mobile Alert Section */
+        .mobile-section {
+            margin-top: 4rem;
+            padding-top: 4rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .mobile-demo {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+        
+        @media (max-width: 900px) {
+            .mobile-demo {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .phone-frame {
+            background: #1a1a1a;
+            border-radius: 40px;
+            padding: 12px;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.5);
+            position: relative;
+        }
+        
+        .phone-notch {
+            position: absolute;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 28px;
+            background: #000;
+            border-radius: 0 0 20px 20px;
+            z-index: 10;
+        }
+        
+        .phone-screen {
+            background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+            border-radius: 32px;
+            min-height: 550px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .phone-status {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 1.5rem 0.5rem;
+            font-size: 0.75rem;
+            color: #fff;
+        }
+        
+        .phone-content {
+            padding: 1rem;
+        }
+        
+        .alert-card {
+            background: rgba(227,28,57,0.15);
+            border: 1px solid rgba(227,28,57,0.4);
+            border-radius: 16px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            animation: slideIn 0.5s ease;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .alert-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .alert-icon {
+            font-size: 1.5rem;
+        }
+        
+        .alert-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--red);
+            font-weight: 600;
+        }
+        
+        .alert-body {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+        
+        .alert-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.5);
+        }
+        
+        .alert-coherence {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: rgba(0,0,0,0.3);
+            padding: 0.75rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+        
+        .coherence-ring {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 3px solid var(--red);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--red);
+        }
+        
+        .coherence-factors {
+            flex: 1;
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.6);
+        }
+        
+        .coherence-factors div {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.25rem;
+        }
+        
+        .alert-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .alert-btn {
+            flex: 1;
+            padding: 0.6rem;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-align: center;
+            cursor: pointer;
+        }
+        
+        .alert-btn-primary {
+            background: var(--red);
+            color: #fff;
+        }
+        
+        .alert-btn-secondary {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+        }
+        
+        .mobile-explanation {
+            padding: 1rem 0;
+        }
+        
+        .mobile-explanation h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-list {
+            list-style: none;
+        }
+        
+        .feature-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .feature-icon {
+            font-size: 1.5rem;
+            width: 40px;
+            text-align: center;
+        }
+        
+        .feature-text h4 {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--red);
+            margin-bottom: 0.25rem;
+        }
+        
+        .feature-text p {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.6);
+        }
         
         /* Morphic Section */
         .morphic-section {
@@ -314,16 +859,16 @@
             border-top: 1px solid rgba(255,255,255,0.1);
         }
         
-        .morphic-grid {
+        .morphic-demo {
             display: grid;
             grid-template-columns: 1fr auto 1fr;
             gap: 2rem;
-            align-items: center;
-            margin-top: 2rem;
+            align-items: stretch;
+            margin: 2rem 0;
         }
         
-        @media (max-width: 768px) {
-            .morphic-grid {
+        @media (max-width: 900px) {
+            .morphic-demo {
                 grid-template-columns: 1fr;
             }
         }
@@ -339,18 +884,21 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
         }
         
         .county-name {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.3rem;
+            font-size: 1.4rem;
         }
         
         .county-status {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.65rem;
-            padding: 0.25rem 0.5rem;
+            font-size: 0.6rem;
+            padding: 0.3rem 0.6rem;
             background: rgba(255,255,255,0.1);
+            letter-spacing: 0.05em;
         }
         
         .county-status.outbreak {
@@ -363,47 +911,88 @@
             color: var(--yellow);
         }
         
-        .county-factors {
+        .county-input {
+            width: 100%;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 0.75rem;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
             font-size: 0.85rem;
-            color: rgba(255,255,255,0.6);
+            resize: vertical;
+            min-height: 120px;
+            margin-bottom: 1rem;
         }
         
-        .county-factors li {
-            margin-bottom: 0.25rem;
+        .county-input:focus {
+            outline: none;
+            border-color: var(--red);
         }
         
-        .morphic-arrow {
-            font-size: 2rem;
-            color: var(--red);
+        .county-score {
             text-align: center;
-        }
-        
-        .morphic-label {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.65rem;
-            color: rgba(255,255,255,0.4);
-            text-align: center;
-            margin-top: 0.5rem;
-        }
-        
-        .morphic-match {
-            text-align: center;
-            margin-top: 1rem;
             padding: 1rem;
-            background: rgba(227,28,57,0.1);
-            border: 1px solid rgba(227,28,57,0.3);
+            background: rgba(0,0,0,0.2);
         }
         
-        .morphic-match-label {
+        .county-score-label {
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.65rem;
             color: rgba(255,255,255,0.5);
             margin-bottom: 0.25rem;
         }
         
+        .county-score-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--red);
+        }
+        
+        .morphic-center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+        }
+        
+        .morphic-arrow {
+            font-size: 2.5rem;
+            color: var(--red);
+            animation: arrowPulse 2s infinite;
+        }
+        
+        @keyframes arrowPulse {
+            0%, 100% { transform: scaleX(1); opacity: 1; }
+            50% { transform: scaleX(1.1); opacity: 0.7; }
+        }
+        
+        .morphic-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            color: rgba(255,255,255,0.4);
+            text-align: center;
+            margin-top: 1rem;
+            line-height: 1.6;
+        }
+        
+        .morphic-match-box {
+            background: rgba(227,28,57,0.1);
+            border: 1px solid rgba(227,28,57,0.3);
+            padding: 0.75rem 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .morphic-match-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            color: rgba(255,255,255,0.5);
+        }
+        
         .morphic-match-value {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 2rem;
+            font-size: 1.5rem;
             font-weight: 600;
             color: var(--red);
         }
@@ -422,7 +1011,7 @@
             margin-top: 2rem;
         }
         
-        @media (max-width: 768px) {
+        @media (max-width: 800px) {
             .tickid-demo {
                 grid-template-columns: 1fr;
             }
@@ -452,7 +1041,7 @@
             font-family: 'Inter', sans-serif;
             font-size: 0.9rem;
             resize: vertical;
-            min-height: 120px;
+            min-height: 140px;
             margin-bottom: 1rem;
         }
         
@@ -461,27 +1050,26 @@
             border-color: var(--red);
         }
         
-        .btn {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem;
-            padding: 0.75rem 1.5rem;
-            border: none;
+        .tickid-presets {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .preset-btn {
+            font-size: 0.7rem;
+            padding: 0.4rem 0.8rem;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.15);
+            color: rgba(255,255,255,0.7);
             cursor: pointer;
             transition: all 0.2s;
         }
         
-        .btn-primary {
-            background: var(--red);
-            color: #fff;
-        }
-        
-        .btn-primary:hover {
-            background: #c41830;
-        }
-        
-        .btn-primary:disabled {
-            background: rgba(227,28,57,0.3);
-            cursor: not-allowed;
+        .preset-btn:hover {
+            border-color: var(--red);
+            color: var(--red);
         }
         
         .tickid-results {
@@ -498,6 +1086,7 @@
             background: rgba(0,0,0,0.2);
             margin-bottom: 0.75rem;
             border-left: 3px solid transparent;
+            transition: all 0.3s;
         }
         
         .result-item:first-child {
@@ -507,10 +1096,10 @@
         
         .result-score {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 600;
             color: var(--red);
-            min-width: 60px;
+            min-width: 55px;
         }
         
         .result-text {
@@ -519,61 +1108,113 @@
         
         .result-species {
             font-weight: 500;
-            margin-bottom: 0.25rem;
+            margin-bottom: 0.2rem;
+            font-size: 0.9rem;
         }
         
         .result-note {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: rgba(255,255,255,0.5);
         }
         
         .result-tag {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.65rem;
-            padding: 0.25rem 0.5rem;
+            font-size: 0.6rem;
+            padding: 0.3rem 0.5rem;
             background: rgba(227,28,57,0.2);
             color: var(--red);
+            white-space: nowrap;
         }
         
-        /* Run Button */
-        .run-section {
-            text-align: center;
+        /* Policy Coherence Section */
+        .policy-section {
+            margin-top: 4rem;
+            padding-top: 4rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .policy-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
             margin: 2rem 0;
         }
         
-        .btn-run {
+        @media (max-width: 900px) {
+            .policy-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 500px) {
+            .policy-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .policy-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 1.25rem;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .policy-card:hover {
+            border-color: var(--red);
+        }
+        
+        .policy-icon {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .policy-name {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 1rem;
-            padding: 1rem 3rem;
-            background: var(--red);
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            transition: all 0.2s;
+            font-size: 0.7rem;
+            color: var(--red);
+            margin-bottom: 0.5rem;
         }
         
-        .btn-run:hover {
-            background: #c41830;
-            transform: translateY(-2px);
+        .policy-desc {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 1rem;
+            min-height: 40px;
         }
         
-        .btn-run:disabled {
-            background: rgba(227,28,57,0.3);
-            cursor: not-allowed;
-            transform: none;
+        .policy-score {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--red);
+        }
+        
+        .policy-score-label {
+            font-size: 0.65rem;
+            color: rgba(255,255,255,0.4);
         }
         
         /* Footer */
         .footer {
             margin-top: 4rem;
-            padding: 2rem;
+            padding: 3rem 2rem;
             border-top: 1px solid rgba(255,255,255,0.1);
             text-align: center;
+            background: rgba(0,0,0,0.3);
+        }
+        
+        .footer-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            color: var(--red);
+            margin-bottom: 1rem;
         }
         
         .footer-text {
             font-size: 0.85rem;
             color: rgba(255,255,255,0.4);
+            margin-bottom: 1.5rem;
         }
         
         .footer-text a {
@@ -581,123 +1222,355 @@
             text-decoration: none;
         }
         
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--red);
+        }
+        
         /* Loading */
         .loading {
             display: inline-block;
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
             border: 2px solid rgba(255,255,255,0.3);
             border-radius: 50%;
-            border-top-color: var(--red);
-            animation: spin 1s ease-in-out infinite;
+            border-top-color: #fff;
+            animation: spin 0.8s linear infinite;
         }
         
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
         
-        /* Insight Box */
-        .insight-box {
-            background: rgba(227,28,57,0.05);
-            border-left: 3px solid var(--red);
-            padding: 1.5rem;
-            margin-top: 2rem;
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+            margin: 2rem 0;
         }
         
-        .insight-box p {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.2rem;
-            font-style: italic;
-            color: rgba(255,255,255,0.8);
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: rgba(255,255,255,0.1);
         }
         
-        .insight-box strong {
+        .timeline-item {
+            position: relative;
+            padding-bottom: 1.5rem;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2rem;
+            top: 0.25rem;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--red);
+            transform: translateX(-4px);
+        }
+        
+        .timeline-time {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
             color: var(--red);
-            font-style: normal;
+            margin-bottom: 0.25rem;
+        }
+        
+        .timeline-event {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.8);
         }
     </style>
 </head>
 <body>
     <header class="header">
         <div class="logo">ARBITER <span>× BITE Act</span></div>
-        <div class="bill-badge">H.R. 4980 | 119TH CONGRESS</div>
+        <div class="header-right">
+            <div class="live-indicator">
+                <span class="live-dot"></span>
+                LIVE API
+            </div>
+            <div class="bill-badge">H.R. 4980 | 119TH CONGRESS</div>
+        </div>
     </header>
     
     <section class="hero">
-        <div class="hero-label">Stigmergic Intelligence for Public Health</div>
+        <div class="hero-label">Stigmergic Intelligence for Vector-Borne Disease Prevention</div>
         <h1>The swarm sees what <em>no observer can.</em></h1>
-        <p class="hero-sub">Six independent data streams. No single source sees the outbreak coming. But cumulative coherence across all six detects the pattern before the first human case.</p>
+        <p class="hero-sub">Six independent data streams. No single source sees the outbreak coming. But cumulative coherence across all six detects the pattern before the first human case. This is what AI early warning actually looks like.</p>
+        
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-value">476K</div>
+                <div class="stat-label">Annual Lyme Cases (US)</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">26MB</div>
+                <div class="stat-label">ARBITER Engine Size</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">&lt;2s</div>
+                <div class="stat-label">Decision Time</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">6</div>
+                <div class="stat-label">Observer Streams</div>
+            </div>
+        </div>
     </section>
     
     <main class="main">
-        <!-- Scenario -->
-        <div class="scenario-box">
-            <div class="scenario-header">
-                <span class="scenario-badge">SCENARIO</span>
-                <span class="scenario-title">Sussex County, NJ — Early Warning Detection</span>
-            </div>
-            <p class="scenario-desc">
-                <strong>Situation:</strong> It's May 2026. No confirmed Lyme cases yet this season. But six independent data streams are showing activity. Each observer has a partial view. Can ARBITER detect the outbreak before it happens?
-            </p>
+        <!-- Scenario Selector -->
+        <div class="scenario-selector">
+            <button class="scenario-btn active" onclick="loadScenario('outbreak')">🚨 Outbreak Imminent</button>
+            <button class="scenario-btn" onclick="loadScenario('elevated')">⚠️ Elevated Risk</button>
+            <button class="scenario-btn" onclick="loadScenario('normal')">✓ Normal Season</button>
+            <button class="scenario-btn" onclick="loadScenario('custom')">✏️ Custom Scenario</button>
         </div>
         
-        <!-- Swarm Section -->
-        <section class="swarm-section">
-            <div class="section-header">
-                <div class="section-label">Stigmergic Swarm</div>
-                <h2 class="section-title">Six Observers. Six Constraint Lenses.</h2>
+        <!-- Scenario Box -->
+        <div class="scenario-box">
+            <div class="scenario-icon" id="scenarioIcon">🎯</div>
+            <div class="scenario-content">
+                <div class="scenario-header">
+                    <span class="scenario-badge" id="scenarioBadge">SCENARIO</span>
+                    <span class="scenario-title" id="scenarioTitle">Sussex County, NJ — Early Warning Detection</span>
+                </div>
+                <p class="scenario-desc" id="scenarioDesc">It's May 2026. No confirmed Lyme cases yet this season. But six independent data streams are showing concerning activity. Each observer has a partial view. Can ARBITER detect the outbreak before it happens?</p>
+                <div class="scenario-meta">
+                    <span id="scenarioLocation">📍 Sussex County, NJ</span>
+                    <span id="scenarioDate">📅 May 2026</span>
+                    <span id="scenarioCases">🏥 0 confirmed cases</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Two Column: Observers + Map -->
+        <div class="two-col">
+            <div class="observers-section">
+                <div class="section-header">
+                    <div class="section-label">Stigmergic Swarm</div>
+                    <h2 class="section-title">Six Observers. Six Constraint Lenses.</h2>
+                </div>
+                
+                <div class="observer-grid" id="observerGrid">
+                    <!-- Rendered by JS -->
+                </div>
             </div>
             
-            <div class="observer-grid" id="observerGrid">
-                <!-- Observer cards will be rendered by JS -->
+            <div class="map-section">
+                <div class="section-header">
+                    <div class="section-label">Risk Map</div>
+                    <h2 class="section-title">New Jersey Counties</h2>
+                </div>
+                
+                <div class="map-container">
+                    <div class="map-nj">
+                        <div class="county county-sussex risk-high selected" data-county="sussex">Sussex</div>
+                        <div class="county county-passaic risk-medium" data-county="passaic">Passaic</div>
+                        <div class="county county-bergen risk-low" data-county="bergen">Bergen</div>
+                        <div class="county county-warren risk-medium" data-county="warren">Warren</div>
+                        <div class="county county-morris risk-high" data-county="morris">Morris</div>
+                        <div class="county county-essex risk-low" data-county="essex">Essex</div>
+                        <div class="county county-hudson risk-low" data-county="hudson">Hudson</div>
+                        <div class="county county-hunterdon risk-critical" data-county="hunterdon">Hunter.</div>
+                        <div class="county county-somerset risk-medium" data-county="somerset">Somerset</div>
+                        <div class="county county-union risk-low" data-county="union">Union</div>
+                        <div class="county county-middlesex risk-low" data-county="middlesex">Middlesex</div>
+                        <div class="county county-mercer risk-medium" data-county="mercer">Mercer</div>
+                        <div class="county county-monmouth risk-medium" data-county="monmouth">Monmouth</div>
+                        <div class="county county-burlington risk-low" data-county="burlington">Burlington</div>
+                        <div class="county county-ocean risk-low" data-county="ocean">Ocean</div>
+                        <div class="county county-camden risk-low" data-county="camden">Camden</div>
+                        <div class="county county-atlantic risk-low" data-county="atlantic">Atlantic</div>
+                        <div class="county county-gloucester risk-low" data-county="gloucester">Glouc.</div>
+                        <div class="county county-salem risk-low" data-county="salem">Salem</div>
+                        <div class="county county-cumberland risk-low" data-county="cumberland">Cumber.</div>
+                        <div class="county county-capemay risk-low" data-county="capemay">Cape May</div>
+                    </div>
+                </div>
+                
+                <div class="map-legend">
+                    <div class="legend-item"><div class="legend-color low"></div> Low</div>
+                    <div class="legend-item"><div class="legend-color medium"></div> Elevated</div>
+                    <div class="legend-item"><div class="legend-color high"></div> High</div>
+                    <div class="legend-item"><div class="legend-color critical"></div> Critical</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Run Analysis -->
+        <div class="run-section">
+            <button class="btn btn-primary btn-run" id="runSwarm" onclick="runSwarmAnalysis()">
+                ▶ Run Swarm Analysis
+            </button>
+            <button class="btn btn-secondary" onclick="resetAnalysis()">
+                ↺ Reset
+            </button>
+        </div>
+        
+        <!-- Cumulative Panel -->
+        <div class="cumulative-panel" id="cumulativePanel" style="display: none;">
+            <div class="cumulative-label">Cumulative Coherence Across All Observers</div>
+            <div class="cumulative-value" id="cumulativeValue">—</div>
+            <div class="cumulative-subtitle">"The swarm knows what no individual member knew."</div>
+            <div class="risk-indicator" id="riskIndicator"></div>
+        </div>
+        
+        <!-- Insight -->
+        <div class="insight-box" id="insightBox" style="display: none;">
+            <p id="insightText"></p>
+        </div>
+        
+        <!-- Mobile Alert Section -->
+        <section class="mobile-section">
+            <div class="section-header" style="text-align: center; margin-bottom: 2rem;">
+                <div class="section-label">Mobile Alert System</div>
+                <h2 class="section-title">Real-Time Location-Based Warnings</h2>
             </div>
             
-            <div class="run-section">
-                <button class="btn-run" id="runSwarm" onclick="runSwarmAnalysis()">
-                    Run Swarm Analysis
-                </button>
-            </div>
-            
-            <div class="cumulative-section" id="cumulativeSection" style="display: none;">
-                <div class="cumulative-label">Cumulative Coherence</div>
-                <div class="cumulative-value" id="cumulativeValue">—</div>
-                <div class="cumulative-subtitle">"The swarm knows what no individual member knew."</div>
-                <div class="risk-indicator" id="riskIndicator"></div>
-            </div>
-            
-            <div class="insight-box" id="insightBox" style="display: none;">
-                <p id="insightText"></p>
+            <div class="mobile-demo">
+                <div class="phone-frame">
+                    <div class="phone-notch"></div>
+                    <div class="phone-screen">
+                        <div class="phone-status">
+                            <span>9:41</span>
+                            <span>📶 🔋</span>
+                        </div>
+                        <div class="phone-content">
+                            <div class="alert-card">
+                                <div class="alert-header">
+                                    <span class="alert-icon">⚠️</span>
+                                    <span class="alert-title">TICK RISK ALERT</span>
+                                </div>
+                                <div class="alert-body">
+                                    <strong>High risk zone detected.</strong> You've entered an area with elevated tick-borne disease risk based on current conditions.
+                                </div>
+                                <div class="alert-meta">
+                                    <span>📍 Stokes State Forest</span>
+                                    <span>Just now</span>
+                                </div>
+                                <div class="alert-coherence">
+                                    <div class="coherence-ring" id="mobileCoherence">0.82</div>
+                                    <div class="coherence-factors">
+                                        <div><span>Habitat match</span><span>0.91</span></div>
+                                        <div><span>Weather window</span><span>0.88</span></div>
+                                        <div><span>Seasonal timing</span><span>0.79</span></div>
+                                        <div><span>Recent reports</span><span>0.71</span></div>
+                                    </div>
+                                </div>
+                                <div class="alert-actions">
+                                    <div class="alert-btn alert-btn-primary">Protection Tips</div>
+                                    <div class="alert-btn alert-btn-secondary">Dismiss</div>
+                                </div>
+                            </div>
+                            
+                            <div style="text-align: center; margin-top: 1rem; color: rgba(255,255,255,0.4); font-size: 0.75rem;">
+                                Swipe for prevention checklist →
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mobile-explanation">
+                    <h3>How It Works</h3>
+                    <ul class="feature-list">
+                        <li>
+                            <div class="feature-icon">📍</div>
+                            <div class="feature-text">
+                                <h4>Location-Aware</h4>
+                                <p>Alerts triggered when entering high-risk zones based on GPS position and local coherence scores.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="feature-icon">🧮</div>
+                            <div class="feature-text">
+                                <h4>Coherence Scoring</h4>
+                                <p>Not binary yes/no — quantified risk based on habitat, weather, seasonal timing, and recent activity.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="feature-icon">⏱️</div>
+                            <div class="feature-text">
+                                <h4>Real-Time Updates</h4>
+                                <p>Risk scores update as conditions change — rain events, temperature shifts, new case reports.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="feature-icon">🔒</div>
+                            <div class="feature-text">
+                                <h4>Privacy-First</h4>
+                                <p>26MB engine runs on-device. No location data sent to servers. Your position stays private.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="feature-icon">🎯</div>
+                            <div class="feature-text">
+                                <h4>Actionable</h4>
+                                <p>Context-specific protection tips based on activity type, duration, and risk factors.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </section>
         
         <!-- Morphic Resonance Section -->
         <section class="morphic-section">
-            <div class="section-header">
+            <div class="section-header" style="text-align: center;">
                 <div class="section-label">Morphic Resonance</div>
                 <h2 class="section-title">Pattern Transfer Without Data Link</h2>
             </div>
             
-            <p style="text-align: center; color: rgba(255,255,255,0.6); max-width: 700px; margin: 0 auto 2rem;">
-                When County A experiences an outbreak pattern, County B — with similar habitat but no data connection — becomes sensitized to the same pattern through geometric resonance in semantic space.
+            <p style="text-align: center; color: rgba(255,255,255,0.6); max-width: 800px; margin: 1rem auto 2rem;">
+                When County A experiences an outbreak pattern, County B — with similar habitat but <strong style="color: var(--red);">no data connection</strong> — becomes sensitized to the same pattern through geometric resonance in semantic space.
             </p>
             
-            <div class="morphic-grid">
+            <div class="morphic-demo">
                 <div class="county-card">
                     <div class="county-header">
                         <span class="county-name">Hunterdon County</span>
                         <span class="county-status outbreak">OUTBREAK CONFIRMED</span>
                     </div>
-                    <ul class="county-factors">
-                        <li>Wet spring (April rainfall +40%)</li>
-                        <li>Deer population spike detected</li>
-                        <li>3-week delay → Lyme cases reported</li>
-                        <li>Pattern: Weather → Wildlife → Human</li>
-                    </ul>
+                    <textarea class="county-input" id="hunterdonInput">Wet spring: April rainfall +40% above normal. White-tailed deer population spike detected via trail cameras. 3-week delay observed. 12 confirmed Lyme cases reported this week. Pattern sequence: Weather anomaly → Wildlife behavior change → Human cases.</textarea>
+                    <div class="county-score">
+                        <div class="county-score-label">OUTBREAK COHERENCE</div>
+                        <div class="county-score-value" id="hunterdonScore">—</div>
+                    </div>
                 </div>
                 
-                <div style="text-align: center;">
+                <div class="morphic-center">
                     <div class="morphic-arrow">⟷</div>
-                    <div class="morphic-label">NO DATA LINK<br>GEOMETRIC RESONANCE</div>
+                    <div class="morphic-label">
+                        NO DATA LINK<br>
+                        GEOMETRIC<br>
+                        RESONANCE
+                    </div>
+                    <div class="morphic-match-box">
+                        <div class="morphic-match-label">MORPHIC_MATCH</div>
+                        <div class="morphic-match-value" id="morphicScore">—</div>
+                    </div>
                 </div>
                 
                 <div class="county-card">
@@ -705,139 +1578,303 @@
                         <span class="county-name">Sussex County</span>
                         <span class="county-status sensitized">SENSITIZED</span>
                     </div>
-                    <ul class="county-factors">
-                        <li>Same wet spring pattern</li>
-                        <li>Similar deciduous forest habitat</li>
-                        <li>Deer migration corridor overlap</li>
-                        <li>Zero human cases (yet)</li>
-                    </ul>
+                    <textarea class="county-input" id="sussexInput">Same wet spring pattern: April rainfall +38% above normal. Similar deciduous forest habitat composition. Deer migration corridor overlap with Hunterdon. Zero confirmed human cases this season. No direct data sharing with neighboring counties.</textarea>
+                    <div class="county-score">
+                        <div class="county-score-label">SENSITIZATION SCORE</div>
+                        <div class="county-score-value" id="sussexScore">—</div>
+                    </div>
                 </div>
             </div>
             
-            <div class="morphic-match">
-                <div class="morphic-match-label">MORPHIC_MATCH SCORE</div>
-                <div class="morphic-match-value" id="morphicScore">0.798</div>
+            <div class="run-section">
+                <button class="btn btn-primary" onclick="runMorphicAnalysis()">
+                    ▶ Compute Morphic Resonance
+                </button>
             </div>
             
-            <div class="insight-box">
-                <p><strong>The pattern didn't transfer through data sharing.</strong> Both counties accessed the same geometric structure in semantic space. Sussex County is flagged HIGH RISK before any human cases — based purely on structural resonance with Hunterdon's outbreak pattern.</p>
+            <div class="insight-box" id="morphicInsight" style="display: none;">
+                <p id="morphicInsightText"></p>
             </div>
         </section>
         
         <!-- Tick ID Section -->
         <section class="tickid-section">
-            <div class="section-header">
+            <div class="section-header" style="text-align: center;">
                 <div class="section-label">Professional Tick ID Service</div>
                 <h2 class="section-title">Species Identification + Risk Assessment</h2>
             </div>
             
+            <p style="text-align: center; color: rgba(255,255,255,0.6); max-width: 700px; margin: 0 auto 2rem;">
+                Submit a description of the tick found. ARBITER identifies the species and assesses disease transmission risk based on semantic coherence with known vector profiles.
+            </p>
+            
             <div class="tickid-demo">
                 <div class="tickid-input-section">
                     <div class="tickid-label">Describe the tick</div>
-                    <textarea class="tickid-textarea" id="tickDescription" placeholder="e.g., small black tick, found on dog after hiking in NJ pine barrens, about the size of a sesame seed, dark brown legs">small black tick, found on dog after hiking in NJ pine barrens, about the size of a sesame seed</textarea>
                     
-                    <button class="btn btn-primary" id="identifyBtn" onclick="runTickID()">
-                        Identify Tick
+                    <div class="tickid-presets">
+                        <button class="preset-btn" onclick="loadTickPreset('deer')">Deer tick (typical)</button>
+                        <button class="preset-btn" onclick="loadTickPreset('lonestar')">Lone star tick</button>
+                        <button class="preset-btn" onclick="loadTickPreset('dog')">Dog tick</button>
+                        <button class="preset-btn" onclick="loadTickPreset('engorged')">Engorged tick</button>
+                    </div>
+                    
+                    <textarea class="tickid-textarea" id="tickDescription" placeholder="Describe size, color, markings, where found, host animal, behavior...">Small black tick, found on dog after hiking in NJ pine barrens, about the size of a sesame seed, dark reddish-brown body with black legs</textarea>
+                    
+                    <button class="btn btn-primary" style="width: 100%;" onclick="runTickID()">
+                        🔬 Identify Tick
                     </button>
                 </div>
                 
-                <div class="tickid-results" id="tickResults">
+                <div class="tickid-results">
                     <div class="tickid-label">Identification Results</div>
-                    <div id="tickResultsList" style="color: rgba(255,255,255,0.4); font-style: italic;">
+                    <div id="tickResultsList" style="color: rgba(255,255,255,0.4); font-style: italic; padding: 2rem; text-align: center;">
                         Enter a description and click "Identify Tick"
                     </div>
                 </div>
             </div>
         </section>
+        
+        <!-- Policy Coherence Section -->
+        <section class="policy-section">
+            <div class="section-header" style="text-align: center;">
+                <div class="section-label">Policy Coherence Analysis</div>
+                <h2 class="section-title">How Well Does the BITE Act Cohere?</h2>
+            </div>
+            
+            <p style="text-align: center; color: rgba(255,255,255,0.6); max-width: 700px; margin: 0 auto 2rem;">
+                Each component of H.R. 4980 scored against the problem space. Higher coherence = better alignment between policy intervention and actual disease dynamics.
+            </p>
+            
+            <div class="policy-grid" id="policyGrid">
+                <!-- Rendered by JS -->
+            </div>
+            
+            <div class="run-section">
+                <button class="btn btn-primary" onclick="runPolicyAnalysis()">
+                    ▶ Analyze Policy Coherence
+                </button>
+            </div>
+            
+            <div class="insight-box" id="policyInsight" style="display: none;">
+                <p id="policyInsightText"></p>
+            </div>
+        </section>
     </main>
     
     <footer class="footer">
+        <div class="footer-logo">ARBITER</div>
         <p class="footer-text">
-            <a href="https://getarbiter.dev" target="_blank">ARBITER</a> — 26MB Semantic Coherence Engine<br>
+            26MB Semantic Coherence Engine — <a href="https://getarbiter.dev" target="_blank">getarbiter.dev</a><br>
             Supporting the <strong>BITE Act (H.R. 4980)</strong> | Rep. Josh Gottheimer (D-NJ-5)
         </p>
+        <div class="footer-links">
+            <a href="https://getarbiter.dev">Documentation</a>
+            <a href="https://api.arbiter.traut.ai/docs">API Reference</a>
+            <a href="https://pypi.org/project/arbiter-engine/">PyPI Package</a>
+            <a href="https://traut.ai">TRAUT Applied Research</a>
+        </div>
     </footer>
     
     <script>
-        // Observer definitions
-        const observers = [
-            {
-                id: 'weather',
-                icon: '🌡️',
-                name: 'Weather Service',
-                desc: 'Temperature, humidity, precipitation patterns',
-                defaultInput: 'Unseasonably warm April. Average temp 68°F (normal: 58°F). Humidity 75%. Rain events: 12 days this month. Conditions highly favorable for tick activity and reproduction.',
-                score: null
+        // ============ DATA ============
+        
+        const scenarios = {
+            outbreak: {
+                icon: '🚨',
+                badge: 'OUTBREAK IMMINENT',
+                title: 'Sussex County, NJ — Outbreak Detection',
+                desc: 'It\'s May 2026. No confirmed Lyme cases yet this season. But all six data streams are showing alarming convergence. This is the pattern that precedes every major outbreak.',
+                location: '📍 Sussex County, NJ',
+                date: '📅 May 15, 2026',
+                cases: '🏥 0 confirmed (12 in neighboring county)',
+                observers: {
+                    weather: 'Unseasonably warm April. Average temp 68°F (normal: 58°F). Humidity 78%. Rain events: 14 days this month, 40% above normal. Conditions optimal for tick activity, reproduction, and questing behavior.',
+                    wildlife: 'White-tailed deer population up 28% from last year. Unusual early migration into suburban corridors observed via trail cameras. White-footed mouse population explosion following mild winter. Acorn mast year creating unprecedented food abundance.',
+                    health: 'No confirmed Lyme cases this season yet. However, 7 patients presented with "flu-like symptoms" and outdoor exposure history in past 2 weeks. Lab results pending on 4. Neighboring Hunterdon County reported 12 cases last week — outbreak declared.',
+                    land: 'New 200-unit housing development broke ground adjacent to 500-acre forest preserve. Trail usage at Stokes State Forest up 340% (post-COVID sustained). Popular hiking areas directly intersect known deer corridors. Habitat fragmentation creating extensive edge zones.',
+                    vet: 'Tick submissions from dogs up 210% vs same period last year. Four horses with confirmed anaplasmosis. Local vet clinics reporting 6-8 tick removal cases daily, up from 1-2 typical. Multiple embedded nymphs found on single animals. Several deer tick identifications.',
+                    citizen: 'iNaturalist: 73 tick observations this week in county (typical: 8-12). Facebook hiking groups flooded with "tick explosion" posts. Five viral TikToks about tick encounters at Stokes State Forest alone. Three local news stories on tick concerns. Community anxiety rising.'
+                }
             },
-            {
-                id: 'wildlife',
-                icon: '🦌',
-                name: 'Wildlife Biologist',
-                desc: 'Deer migration, mouse population cycles',
-                defaultInput: 'White-tailed deer population up 23% from last year. Unusual early migration into suburban corridors. White-footed mouse population explosion following mild winter. Acorn mast year creating food abundance.',
-                score: null
+            elevated: {
+                icon: '⚠️',
+                badge: 'ELEVATED RISK',
+                title: 'Morris County, NJ — Enhanced Monitoring',
+                desc: 'Spring 2026. Several indicators trending upward but not yet at outbreak threshold. Enhanced surveillance recommended.',
+                location: '📍 Morris County, NJ',
+                date: '📅 April 28, 2026',
+                cases: '🏥 3 confirmed YTD',
+                observers: {
+                    weather: 'Warm spring developing. Average temp 62°F (normal: 55°F). Humidity 65%. Rain events: 8 days this month. Conditions becoming favorable for tick activity.',
+                    wildlife: 'Deer population stable, slight increase from last year. Normal migration patterns observed. Mouse population within expected range following average winter.',
+                    health: '3 confirmed Lyme cases this season, on pace with 5-year average. Two patients with pending lab results after outdoor exposure. No unusual patterns in ER presentations.',
+                    land: 'Trail usage elevated but stable. One small residential development near parkland. No major habitat changes.',
+                    vet: 'Tick submissions from pets up 40% vs same period last year. One horse with suspected tick-borne illness. Vet clinics reporting 2-3 tick removal cases daily.',
+                    citizen: 'iNaturalist: 18 tick observations this week (typical: 8-12). Some social media discussion of tick season starting. Normal community awareness level.'
+                }
             },
-            {
-                id: 'health',
-                icon: '🏥',
-                name: 'County Health Dept',
-                desc: 'Human case reports, ER visits, surveillance',
-                defaultInput: 'No confirmed Lyme cases this season yet. However, 3 patients presented with "flu-like symptoms" and outdoor exposure history. Lab results pending. Neighboring county reported 12 cases last week.',
-                score: null
+            normal: {
+                icon: '✓',
+                badge: 'NORMAL ACTIVITY',
+                title: 'Ocean County, NJ — Baseline Monitoring',
+                desc: 'Early spring 2026. All indicators within normal seasonal ranges. Standard prevention protocols appropriate.',
+                location: '📍 Ocean County, NJ',
+                date: '📅 April 10, 2026',
+                cases: '🏥 0 confirmed YTD',
+                observers: {
+                    weather: 'Typical spring weather. Average temp 52°F. Humidity 55%. Rain events: 5 days this month. Conditions not yet optimal for significant tick activity.',
+                    wildlife: 'Deer population normal. No unusual migration patterns. Mouse population average following typical winter.',
+                    health: 'No confirmed vector-borne disease cases this season. No unusual presentations in local ERs. Surveillance within normal parameters.',
+                    land: 'Trail usage beginning to increase with warmer weather. No significant development or habitat changes.',
+                    vet: 'Tick submissions from pets at baseline levels. No reported tick-borne illness in livestock. Normal seasonal patterns.',
+                    citizen: 'iNaturalist: 4 tick observations this week. Minimal social media discussion. Normal early-season awareness.'
+                }
             },
-            {
-                id: 'land',
-                icon: '🌲',
-                name: 'Land Use Analyst',
-                desc: 'Trail usage, development patterns, interface zones',
-                defaultInput: 'New housing development broke ground adjacent to 200-acre forest preserve. Trail usage up 340% (post-COVID sustained). Popular hiking areas intersect known deer corridors. Fragmented habitat increasing edge zones.',
-                score: null
-            },
-            {
-                id: 'vet',
-                icon: '🐕',
-                name: 'Veterinarian Network',
-                desc: 'Pet tick submissions, livestock cases',
-                defaultInput: 'Tick submissions from dogs up 180% vs same period last year. Three horses with suspected anaplasmosis. Local vet clinic reporting 4-5 tick removal cases daily, up from 1-2 typical. Multiple embedded nymphs found.',
-                score: null
-            },
-            {
-                id: 'citizen',
-                icon: '📱',
-                name: 'Citizen Reports',
-                desc: 'iNaturalist sightings, tick ID submissions',
-                defaultInput: 'iNaturalist: 47 tick observations this week in county (typical: 8-12). Facebook hiking groups reporting "tick explosion" on popular trails. Three viral TikToks about tick encounters at local park. Community concern rising.',
-                score: null
+            custom: {
+                icon: '✏️',
+                badge: 'CUSTOM SCENARIO',
+                title: 'Custom Analysis',
+                desc: 'Enter your own data for each observer to analyze a custom scenario.',
+                location: '📍 Custom Location',
+                date: '📅 Custom Date',
+                cases: '🏥 Custom',
+                observers: {
+                    weather: '',
+                    wildlife: '',
+                    health: '',
+                    land: '',
+                    vet: '',
+                    citizen: ''
+                }
             }
+        };
+        
+        const observers = [
+            { id: 'weather', icon: '🌡️', name: 'Weather Service', desc: 'Temperature, humidity, precipitation' },
+            { id: 'wildlife', icon: '🦌', name: 'Wildlife Biologist', desc: 'Deer migration, mouse populations' },
+            { id: 'health', icon: '🏥', name: 'County Health Dept', desc: 'Case reports, ER surveillance' },
+            { id: 'land', icon: '🌲', name: 'Land Use Analyst', desc: 'Trail usage, development patterns' },
+            { id: 'vet', icon: '🐕', name: 'Veterinarian Network', desc: 'Pet tick submissions, livestock' },
+            { id: 'citizen', icon: '📱', name: 'Citizen Reports', desc: 'iNaturalist, social media signals' }
         ];
         
-        // Tick species for ID demo
         const tickSpecies = [
-            { name: 'Ixodes scapularis (deer tick)', note: 'Primary Lyme disease vector', tag: 'LYME VECTOR ⚠️' },
-            { name: 'Amblyomma americanum (lone star tick)', note: 'Alpha-gal syndrome, ehrlichiosis', tag: 'DISEASE VECTOR' },
-            { name: 'Dermacentor variabilis (American dog tick)', note: 'Rocky Mountain spotted fever', tag: 'DISEASE VECTOR' },
-            { name: 'Rhipicephalus sanguineus (brown dog tick)', note: 'Primarily affects dogs', tag: 'LOW HUMAN RISK' },
-            { name: 'Haemaphysalis longicornis (Asian longhorned tick)', note: 'Invasive species, livestock concern', tag: 'INVASIVE' }
+            { name: 'Ixodes scapularis (deer tick)', note: 'Primary Lyme disease vector in eastern US', tag: 'LYME VECTOR ⚠️' },
+            { name: 'Amblyomma americanum (lone star tick)', note: 'Alpha-gal syndrome, ehrlichiosis, STARI', tag: 'MULTIPLE DISEASES' },
+            { name: 'Dermacentor variabilis (American dog tick)', note: 'Rocky Mountain spotted fever, tularemia', tag: 'RMSF VECTOR' },
+            { name: 'Rhipicephalus sanguineus (brown dog tick)', note: 'Primarily affects dogs, rare human bites', tag: 'LOW HUMAN RISK' },
+            { name: 'Haemaphysalis longicornis (Asian longhorned tick)', note: 'Invasive species, parthenogenetic, livestock concern', tag: 'INVASIVE ⚠️' }
         ];
         
-        // Render observer cards
+        const tickPresets = {
+            deer: 'Small black tick, found on dog after hiking in NJ pine barrens, about the size of a sesame seed, dark reddish-brown body with black legs, had not yet engorged',
+            lonestar: 'Medium-sized tick with distinctive white dot on back, found on leg after walking through tall grass in southern NJ, aggressive biter, tan/brown coloring',
+            dog: 'Larger tick with ornate markings, found on dog after visit to dog park, brown with white/gray patterning on back, about 5mm unfed',
+            engorged: 'Engorged tick removed from child\'s scalp after camping trip, was gray/blue and swollen to size of small grape, had been attached for unknown duration, found in wooded area of northwest NJ'
+        };
+        
+        const policyComponents = [
+            { id: 'ai_warning', icon: '🤖', name: 'AI Early Warning', desc: 'Predictive system using weather, habitat, wildlife data' },
+            { id: 'mobile_alerts', icon: '📱', name: 'Mobile Alerts', desc: 'Location-based risk notifications to phones' },
+            { id: 'tick_id', icon: '🔬', name: 'Professional Tick ID', desc: 'Species identification for civilians and military' },
+            { id: 'one_health', icon: '🌐', name: 'One Health Integration', desc: 'Human, animal, environmental data fusion' }
+        ];
+        
+        let currentScenario = 'outbreak';
+        let observerScores = {};
+        
+        // ============ INITIALIZATION ============
+        
+        function init() {
+            renderObservers();
+            renderPolicyCards();
+            loadScenario('outbreak');
+        }
+        
         function renderObservers() {
             const grid = document.getElementById('observerGrid');
             grid.innerHTML = observers.map(obs => `
                 <div class="observer-card" id="card-${obs.id}">
-                    <div class="observer-icon">${obs.icon}</div>
-                    <div class="observer-name">${obs.name}</div>
-                    <div class="observer-desc">${obs.desc}</div>
-                    <textarea class="observer-input" id="input-${obs.id}">${obs.defaultInput}</textarea>
-                    <div class="observer-score" id="score-${obs.id}" style="display: none;">
-                        <span class="score-value" id="value-${obs.id}">—</span>
-                        <span class="score-label">coherence</span>
+                    <div class="observer-header">
+                        <div class="observer-icon">${obs.icon}</div>
+                        <div class="observer-info">
+                            <div class="observer-name">${obs.name}</div>
+                            <div class="observer-desc">${obs.desc}</div>
+                        </div>
+                    </div>
+                    <textarea class="observer-input" id="input-${obs.id}" placeholder="Enter observation data..."></textarea>
+                    <div class="observer-footer">
+                        <div class="observer-score" id="score-${obs.id}" style="visibility: hidden;">
+                            <span class="score-value" id="value-${obs.id}">—</span>
+                            <span class="score-label">coherence</span>
+                        </div>
+                        <div class="score-bar">
+                            <div class="score-fill" id="fill-${obs.id}" style="width: 0%;"></div>
+                        </div>
                     </div>
                 </div>
             `).join('');
         }
         
-        // API call helper
+        function renderPolicyCards() {
+            const grid = document.getElementById('policyGrid');
+            grid.innerHTML = policyComponents.map(p => `
+                <div class="policy-card" id="policy-${p.id}">
+                    <div class="policy-icon">${p.icon}</div>
+                    <div class="policy-name">${p.name}</div>
+                    <div class="policy-desc">${p.desc}</div>
+                    <div class="policy-score" id="policy-score-${p.id}">—</div>
+                    <div class="policy-score-label">coherence</div>
+                </div>
+            `).join('');
+        }
+        
+        // ============ SCENARIO MANAGEMENT ============
+        
+        function loadScenario(scenarioId) {
+            currentScenario = scenarioId;
+            const scenario = scenarios[scenarioId];
+            
+            // Update selector buttons
+            document.querySelectorAll('.scenario-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Update scenario box
+            document.getElementById('scenarioIcon').textContent = scenario.icon;
+            document.getElementById('scenarioBadge').textContent = scenario.badge;
+            document.getElementById('scenarioTitle').textContent = scenario.title;
+            document.getElementById('scenarioDesc').textContent = scenario.desc;
+            document.getElementById('scenarioLocation').textContent = scenario.location;
+            document.getElementById('scenarioDate').textContent = scenario.date;
+            document.getElementById('scenarioCases').textContent = scenario.cases;
+            
+            // Update observer inputs
+            observers.forEach(obs => {
+                document.getElementById(`input-${obs.id}`).value = scenario.observers[obs.id];
+            });
+            
+            // Reset analysis
+            resetAnalysis();
+        }
+        
+        function resetAnalysis() {
+            observerScores = {};
+            
+            // Reset observer cards
+            observers.forEach(obs => {
+                document.getElementById(`card-${obs.id}`).classList.remove('active');
+                document.getElementById(`score-${obs.id}`).style.visibility = 'hidden';
+                document.getElementById(`fill-${obs.id}`).style.width = '0%';
+            });
+            
+            // Hide cumulative
+            document.getElementById('cumulativePanel').style.display = 'none';
+            document.getElementById('insightBox').style.display = 'none';
+        }
+        
+        // ============ API CALLS ============
+        
         async function callArbiter(query, candidates) {
             const response = await fetch('https://api.arbiter.traut.ai/public/compare', {
                 method: 'POST',
@@ -849,26 +1886,27 @@
             return await response.json();
         }
         
-        // Run swarm analysis
+        // ============ SWARM ANALYSIS ============
+        
         async function runSwarmAnalysis() {
             const btn = document.getElementById('runSwarm');
             btn.disabled = true;
-            btn.innerHTML = '<span class="loading"></span> Analyzing...';
+            btn.innerHTML = '<span class="loading"></span> Analyzing swarm...';
             
-            const threatQuery = "Imminent tick-borne disease outbreak. Multiple environmental and biological factors converging. High risk of Lyme disease transmission to human population within 2-4 weeks.";
-            
-            const noThreatQuery = "Normal seasonal tick activity. No unusual patterns. Standard prevention measures sufficient. Low risk of disease outbreak.";
+            const threatQuery = "Imminent tick-borne disease outbreak with high probability of human cases within 2-4 weeks. Multiple environmental, biological, and behavioral factors converging to create optimal disease transmission conditions. Pattern matches historical outbreak precursors.";
+            const noThreatQuery = "Normal seasonal tick activity within expected parameters. No unusual convergence of risk factors. Standard prevention measures appropriate. Low probability of outbreak.";
             
             let cumulativeCoherence = 0;
             
             try {
-                for (const obs of observers) {
+                for (let i = 0; i < observers.length; i++) {
+                    const obs = observers[i];
                     const input = document.getElementById(`input-${obs.id}`).value;
                     
-                    // Score this observer's input against threat vs no-threat
+                    if (!input.trim()) continue;
+                    
                     const result = await callArbiter(input, [threatQuery, noThreatQuery]);
                     
-                    // Get the threat score (first candidate)
                     let threatScore = 0;
                     if (result.all && result.all.length > 0) {
                         const threatResult = result.all.find(r => r.text === threatQuery);
@@ -877,54 +1915,132 @@
                         threatScore = result.top[0].score;
                     }
                     
-                    obs.score = threatScore;
+                    observerScores[obs.id] = threatScore;
                     cumulativeCoherence += threatScore;
                     
-                    // Update UI
-                    document.getElementById(`card-${obs.id}`).classList.add('active');
-                    document.getElementById(`score-${obs.id}`).style.display = 'flex';
-                    document.getElementById(`value-${obs.id}`).textContent = threatScore.toFixed(3);
+                    // Animate update
+                    const card = document.getElementById(`card-${obs.id}`);
+                    const scoreEl = document.getElementById(`score-${obs.id}`);
+                    const valueEl = document.getElementById(`value-${obs.id}`);
+                    const fillEl = document.getElementById(`fill-${obs.id}`);
+                    
+                    card.classList.add('active');
+                    scoreEl.style.visibility = 'visible';
+                    valueEl.textContent = threatScore.toFixed(3);
+                    fillEl.style.width = `${Math.min(threatScore * 100, 100)}%`;
+                    
+                    // Small delay for visual effect
+                    await new Promise(r => setTimeout(r, 200));
                 }
                 
-                // Show cumulative section
-                document.getElementById('cumulativeSection').style.display = 'block';
+                // Show cumulative
+                document.getElementById('cumulativePanel').style.display = 'block';
                 document.getElementById('cumulativeValue').textContent = cumulativeCoherence.toFixed(3);
                 
-                // Determine risk level
+                // Risk level
                 const riskIndicator = document.getElementById('riskIndicator');
                 let riskClass, riskText;
-                if (cumulativeCoherence > 4.5) {
+                
+                if (cumulativeCoherence > 4.0) {
                     riskClass = 'risk-critical';
-                    riskText = '🚨 CRITICAL — Outbreak Imminent';
-                } else if (cumulativeCoherence > 3.5) {
+                    riskText = '🚨 CRITICAL — Outbreak Imminent — Activate Emergency Protocols';
+                } else if (cumulativeCoherence > 3.2) {
                     riskClass = 'risk-high';
-                    riskText = '⚠️ HIGH RISK — Enhanced Surveillance';
-                } else if (cumulativeCoherence > 2.5) {
+                    riskText = '⚠️ HIGH RISK — Enhanced Surveillance & Public Alerts Required';
+                } else if (cumulativeCoherence > 2.4) {
                     riskClass = 'risk-medium';
-                    riskText = '⚡ ELEVATED — Monitor Closely';
+                    riskText = '⚡ ELEVATED — Increased Monitoring Recommended';
                 } else {
                     riskClass = 'risk-low';
-                    riskText = '✓ NORMAL — Standard Protocols';
+                    riskText = '✓ NORMAL — Standard Seasonal Protocols';
                 }
+                
                 riskIndicator.className = 'risk-indicator ' + riskClass;
                 riskIndicator.textContent = riskText;
                 
+                // Find highest and lowest
+                const sortedScores = Object.entries(observerScores).sort((a, b) => b[1] - a[1]);
+                const highest = observers.find(o => o.id === sortedScores[0][0]);
+                const lowest = observers.find(o => o.id === sortedScores[sortedScores.length - 1][0]);
+                
                 // Show insight
                 document.getElementById('insightBox').style.display = 'block';
-                document.getElementById('insightText').innerHTML = `<strong>No single observer could see this.</strong> The Weather Service saw favorable conditions. The Wildlife Biologist saw population spikes. The Vet saw tick submissions rise. But only the cumulative coherence — ${cumulativeCoherence.toFixed(3)} — reveals the converging outbreak pattern. This is stigmergic intelligence: the swarm detecting what no individual can see.`;
+                document.getElementById('insightText').innerHTML = `
+                    <strong>No single observer could see this coming.</strong> The ${highest.name} showed the strongest signal (${sortedScores[0][1].toFixed(3)}), while ${lowest.name} showed the weakest (${sortedScores[sortedScores.length - 1][1].toFixed(3)}). 
+                    But only the cumulative coherence — <strong>${cumulativeCoherence.toFixed(3)}</strong> — reveals the true risk level. 
+                    This is stigmergic intelligence: the swarm detecting patterns that no individual observer can see. 
+                    The BITE Act's AI Early Warning system would operationalize exactly this capability.
+                `;
+                
+                // Update mobile coherence
+                document.getElementById('mobileCoherence').textContent = (cumulativeCoherence / 6).toFixed(2);
                 
             } catch (error) {
                 console.error('Swarm analysis error:', error);
-                alert('Error running analysis. Check console for details.');
+                alert('Error running analysis: ' + error.message);
             }
             
             btn.disabled = false;
-            btn.textContent = 'Run Swarm Analysis';
+            btn.innerHTML = '▶ Run Swarm Analysis';
         }
         
-        // Run tick ID
+        // ============ MORPHIC RESONANCE ============
+        
+        async function runMorphicAnalysis() {
+            const hunterdonInput = document.getElementById('hunterdonInput').value;
+            const sussexInput = document.getElementById('sussexInput').value;
+            
+            if (!hunterdonInput || !sussexInput) {
+                alert('Please enter data for both counties');
+                return;
+            }
+            
+            const btn = event.target;
+            btn.disabled = true;
+            btn.innerHTML = '<span class="loading"></span> Computing...';
+            
+            try {
+                // Score Hunterdon against outbreak pattern
+                const outbreakQuery = "Confirmed tick-borne disease outbreak with established transmission pattern: environmental trigger followed by wildlife behavioral change followed by human cases. Active disease transmission occurring.";
+                
+                const hunterdonResult = await callArbiter(hunterdonInput, [outbreakQuery]);
+                const hunterdonScore = hunterdonResult.all?.[0]?.score || hunterdonResult.top?.[0]?.score || 0;
+                document.getElementById('hunterdonScore').textContent = hunterdonScore.toFixed(3);
+                
+                // Score Sussex against same pattern
+                const sussexResult = await callArbiter(sussexInput, [outbreakQuery]);
+                const sussexScore = sussexResult.all?.[0]?.score || sussexResult.top?.[0]?.score || 0;
+                document.getElementById('sussexScore').textContent = sussexScore.toFixed(3);
+                
+                // Compute morphic match (similarity of patterns)
+                const morphicResult = await callArbiter(hunterdonInput, [sussexInput]);
+                const morphicScore = morphicResult.all?.[0]?.score || morphicResult.top?.[0]?.score || 0;
+                document.getElementById('morphicScore').textContent = morphicScore.toFixed(3);
+                
+                // Show insight
+                document.getElementById('morphicInsight').style.display = 'block';
+                document.getElementById('morphicInsightText').innerHTML = `
+                    <strong>Pattern transfer detected.</strong> Hunterdon's outbreak pattern (coherence: ${hunterdonScore.toFixed(3)}) resonates with Sussex's current state at <strong>${morphicScore.toFixed(3)}</strong> morphic match.
+                    Despite zero data link between counties, Sussex shows ${sussexScore.toFixed(3)} coherence with the outbreak signature.
+                    This geometric resonance — not data sharing — is how the system predicts outbreak spread. Sussex should be flagged HIGH RISK before any human cases appear.
+                `;
+                
+            } catch (error) {
+                console.error('Morphic analysis error:', error);
+                alert('Error: ' + error.message);
+            }
+            
+            btn.disabled = false;
+            btn.innerHTML = '▶ Compute Morphic Resonance';
+        }
+        
+        // ============ TICK ID ============
+        
+        function loadTickPreset(preset) {
+            document.getElementById('tickDescription').value = tickPresets[preset];
+        }
+        
         async function runTickID() {
-            const btn = document.getElementById('identifyBtn');
             const description = document.getElementById('tickDescription').value.trim();
             const resultsDiv = document.getElementById('tickResultsList');
             
@@ -933,25 +2049,18 @@
                 return;
             }
             
+            const btn = event.target;
             btn.disabled = true;
             btn.innerHTML = '<span class="loading"></span>';
-            resultsDiv.innerHTML = '<div style="color: rgba(255,255,255,0.4);">Analyzing...</div>';
+            resultsDiv.innerHTML = '<div style="text-align: center; padding: 2rem; color: rgba(255,255,255,0.5);">Analyzing...</div>';
             
             try {
                 const candidates = tickSpecies.map(t => t.name);
                 const result = await callArbiter(description, candidates);
                 
-                let results = [];
-                if (result.all && result.all.length > 0) {
-                    results = result.all;
-                } else if (result.top && result.top.length > 0) {
-                    results = result.top;
-                }
-                
-                // Sort by score
+                let results = result.all || result.top || [];
                 results.sort((a, b) => b.score - a.score);
                 
-                // Render results
                 resultsDiv.innerHTML = results.map((r, i) => {
                     const species = tickSpecies.find(t => t.name === r.text);
                     return `
@@ -959,7 +2068,7 @@
                             <div class="result-score">${r.score.toFixed(3)}</div>
                             <div class="result-text">
                                 <div class="result-species">${r.text}</div>
-                                <div class="result-note">${species ? species.note : ''}</div>
+                                <div class="result-note">${species?.note || ''}</div>
                             </div>
                             ${i === 0 && species ? `<div class="result-tag">${species.tag}</div>` : ''}
                         </div>
@@ -968,15 +2077,63 @@
                 
             } catch (error) {
                 console.error('Tick ID error:', error);
-                resultsDiv.innerHTML = '<div style="color: var(--red);">Error: ' + error.message + '</div>';
+                resultsDiv.innerHTML = `<div style="color: var(--red); text-align: center; padding: 2rem;">Error: ${error.message}</div>`;
             }
             
             btn.disabled = false;
-            btn.textContent = 'Identify Tick';
+            btn.innerHTML = '🔬 Identify Tick';
         }
         
-        // Initialize
-        renderObservers();
+        // ============ POLICY ANALYSIS ============
+        
+        async function runPolicyAnalysis() {
+            const btn = event.target;
+            btn.disabled = true;
+            btn.innerHTML = '<span class="loading"></span> Analyzing...';
+            
+            const problemSpace = "Vector-borne disease prevention requires: early detection of outbreak conditions before human cases occur, real-time risk communication to at-risk populations, accurate species identification for appropriate medical response, and integration of environmental, animal, and human health surveillance data. Current gaps include delayed detection, fragmented data systems, lack of predictive capability, and insufficient public awareness during high-risk periods.";
+            
+            const policyTexts = {
+                ai_warning: "AI early warning system that predicts disease activity using weather patterns, habitat conditions, and wildlife population data to provide real-time location-based risk assessment and alerts before outbreaks occur.",
+                mobile_alerts: "Mobile alert system that delivers location-aware notifications to individuals' phones when they enter high-risk zones, enabling proactive personal protection measures based on current local conditions.",
+                tick_id: "Professional tick identification service allowing civilians and military personnel to submit ticks for species identification, with integrated risk assessment and medical guidance based on vector type.",
+                one_health: "One Health data integration combining human case surveillance, veterinary reports, wildlife monitoring, and environmental conditions into unified outbreak detection and response system."
+            };
+            
+            try {
+                let totalCoherence = 0;
+                
+                for (const comp of policyComponents) {
+                    const result = await callArbiter(problemSpace, [policyTexts[comp.id]]);
+                    const score = result.all?.[0]?.score || result.top?.[0]?.score || 0;
+                    
+                    document.getElementById(`policy-score-${comp.id}`).textContent = score.toFixed(3);
+                    totalCoherence += score;
+                    
+                    await new Promise(r => setTimeout(r, 150));
+                }
+                
+                const avgCoherence = totalCoherence / policyComponents.length;
+                
+                document.getElementById('policyInsight').style.display = 'block';
+                document.getElementById('policyInsightText').innerHTML = `
+                    <strong>Policy-problem coherence: ${avgCoherence.toFixed(3)} average.</strong>
+                    The BITE Act's components show strong alignment with the actual problem space of vector-borne disease prevention.
+                    High coherence indicates these interventions address real gaps in current capability.
+                    This is what evidence-based policy looks like — interventions that geometrically align with the problems they're designed to solve.
+                `;
+                
+            } catch (error) {
+                console.error('Policy analysis error:', error);
+                alert('Error: ' + error.message);
+            }
+            
+            btn.disabled = false;
+            btn.innerHTML = '▶ Analyze Policy Coherence';
+        }
+        
+        // ============ INIT ============
+        init();
     </script>
 </body>
 </html>
