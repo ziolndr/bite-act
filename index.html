@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BITE Act + ARBITER | Stigmergic Intelligence for Vector-Borne Disease</title>
+    <title>ARBITER for Vector-Borne Disease | Actual General Intelligence</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -1301,24 +1301,378 @@
             font-size: 0.9rem;
             color: rgba(255,255,255,0.8);
         }
-    </style>
+    
+/* ===============================
+   Actual General Intelligence aesthetic pass
+   Cool white / graphite / clinical red
+   =============================== */
+:root {
+    --red: #D71920 !important;
+    --black: #08090b !important;
+    --graphite: #20242a !important;
+    --gray: #5f6673 !important;
+    --muted: #7a808a !important;
+    --line: #cfd3da !important;
+    --line-strong: #08090b !important;
+    --paper: #f6f7f8 !important;
+    --sheet: #ffffff !important;
+    --green: #168a5b !important;
+    --yellow: #b7791f !important;
+    --orange: #c05a13 !important;
+    --blue: #3450b4 !important;
+    --purple: #6f4db8 !important;
+}
+body {
+    background: var(--paper) !important;
+    color: var(--black) !important;
+    letter-spacing: -0.012em;
+}
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background:
+        linear-gradient(90deg, rgba(8,9,11,.028) 1px, transparent 1px),
+        linear-gradient(rgba(8,9,11,.018) 1px, transparent 1px);
+    background-size: 48px 48px;
+    opacity: .45;
+    z-index: -1;
+}
+.header {
+    background: rgba(246,247,248,.96) !important;
+    border-bottom: 2px solid var(--line-strong) !important;
+    color: var(--black) !important;
+}
+.logo {
+    display: flex;
+    flex-direction: column;
+    gap: .2rem;
+    font-family: 'Cormorant Garamond', serif;
+    color: var(--black) !important;
+    line-height: 1;
+}
+.brand-word {
+    font-size: 1.45rem;
+    font-weight: 600;
+    letter-spacing: -.035em;
+}
+.brand-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .55rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--red);
+}
+.logo span {
+    margin-left: 0 !important;
+    color: inherit !important;
+}
+.bill-badge,
+.live-indicator {
+    color: var(--black) !important;
+    border-color: var(--line-strong) !important;
+    background: var(--sheet) !important;
+}
+.live-dot {
+    background: var(--red) !important;
+}
+.contact-cta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .68rem;
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    text-decoration: none;
+    color: #fff;
+    background: var(--red);
+    border: 1.5px solid var(--red);
+    padding: .48rem .8rem;
+    box-shadow: 4px 4px 0 var(--black);
+}
+.hero {
+    max-width: 1120px !important;
+    padding-top: 5rem !important;
+}
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0 2rem auto;
+    height: 100%;
+    pointer-events: none;
+    background:
+        radial-gradient(circle at 18% 10%, rgba(215,25,32,.14), transparent 24%),
+        linear-gradient(118deg, transparent 0 36%, rgba(215,25,32,.18) 36% 36.5%, transparent 36.5% 100%);
+    z-index: -1;
+}
+.hero-label,
+.section-label,
+.observer-name,
+.feature-text h4,
+.policy-name,
+.tickid-label,
+.timeline-time {
+    color: var(--red) !important;
+}
+.hero h1,
+.section-title,
+.scenario-title,
+.mobile-explanation h3,
+.county-name {
+    color: var(--black) !important;
+}
+.hero h1 {
+    font-size: clamp(2.7rem, 6.2vw, 5.6rem) !important;
+    line-height: .9 !important;
+    letter-spacing: -.055em;
+}
+.hero h1 em {
+    color: var(--red) !important;
+}
+.hero-sub {
+    color: var(--graphite) !important;
+    font-size: 1.15rem !important;
+}
+.stats-bar,
+.scenario-box,
+.observer-card,
+.map-section,
+.map-container,
+.cumulative-panel,
+.insight-box,
+.phone-frame,
+.county-card,
+.tickid-input-section,
+.tickid-results,
+.policy-card {
+    background: var(--sheet) !important;
+    border: 2px solid var(--line-strong) !important;
+    color: var(--black) !important;
+    border-radius: 0 !important;
+    box-shadow: 10px 10px 0 rgba(8,9,11,.10);
+}
+.stats-bar {
+    gap: 0 !important;
+    padding: 0 !important;
+}
+.stat-item {
+    flex: 1;
+    padding: 1.25rem 1.5rem;
+    border-right: 1.5px solid var(--line-strong);
+}
+.stat-item:last-child {
+    border-right: 0;
+}
+.stat-value,
+.score-value,
+.cumulative-value,
+.result-score,
+.policy-score,
+.county-score-value,
+.morphic-match-value,
+.footer-logo {
+    color: var(--red) !important;
+}
+.stat-label,
+.scenario-desc,
+.scenario-meta,
+.observer-desc,
+.score-label,
+.section-header + p,
+.mobile-explanation p,
+.feature-text p,
+.policy-desc,
+.result-note,
+.footer-text,
+.footer-links a,
+.coherence-factors,
+.alert-meta,
+.county-score-label,
+.morphic-label,
+.morphic-match-label,
+.tickid-results,
+.preset-btn,
+.scenario-btn {
+    color: var(--gray) !important;
+}
+.scenario-btn,
+.preset-btn,
+.btn-secondary {
+    background: var(--sheet) !important;
+    border: 1.5px solid var(--line-strong) !important;
+    color: var(--black) !important;
+    border-radius: 0 !important;
+}
+.scenario-btn.active,
+.scenario-btn:hover,
+.preset-btn:hover,
+.btn-primary,
+.alert-btn-primary {
+    background: var(--red) !important;
+    border-color: var(--red) !important;
+    color: #fff !important;
+}
+.scenario-badge,
+.result-tag,
+.county-status.outbreak {
+    background: var(--red) !important;
+    color: #fff !important;
+}
+.observer-card.active,
+.policy-card:hover,
+.result-item:first-child {
+    border-color: var(--red) !important;
+    background: #fff5f5 !important;
+}
+.observer-card::before,
+.observer-card.active::before,
+.score-fill {
+    background: var(--red) !important;
+}
+.observer-input,
+.county-input,
+.tickid-textarea {
+    background: #f3f4f6 !important;
+    border: 1.5px solid var(--line-strong) !important;
+    color: var(--black) !important;
+    border-radius: 0 !important;
+}
+.observer-input:focus,
+.county-input:focus,
+.tickid-textarea:focus {
+    outline: none;
+    border-color: var(--red) !important;
+    box-shadow: 0 0 0 3px rgba(215,25,32,.14);
+}
+.map-container {
+    background: #f3f4f6 !important;
+}
+.county {
+    color: var(--black) !important;
+    border-color: rgba(8,9,11,.28) !important;
+}
+.county.selected {
+    border-color: var(--red) !important;
+    box-shadow: 0 0 0 4px rgba(215,25,32,.18) !important;
+}
+.county.risk-low { background: rgba(22,138,91,.20) !important; }
+.county.risk-medium { background: rgba(183,121,31,.24) !important; }
+.county.risk-high { background: rgba(192,90,19,.28) !important; }
+.county.risk-critical { background: rgba(215,25,32,.34) !important; }
+.cumulative-value {
+    text-shadow: none !important;
+}
+.cumulative-subtitle,
+.insight-box p {
+    color: var(--graphite) !important;
+}
+.risk-indicator {
+    border-radius: 0 !important;
+}
+.phone-frame {
+    background: var(--black) !important;
+    padding: 10px !important;
+}
+.phone-screen {
+    background: #f6f7f8 !important;
+    color: var(--black) !important;
+}
+.phone-status {
+    color: var(--black) !important;
+}
+.alert-card,
+.alert-coherence {
+    background: #fff !important;
+    border: 1.5px solid var(--line-strong) !important;
+    color: var(--black) !important;
+}
+.alert-title,
+.coherence-ring {
+    color: var(--red) !important;
+    border-color: var(--red) !important;
+}
+.alert-body {
+    color: var(--graphite) !important;
+}
+.alert-btn-secondary {
+    background: #e6e8ed !important;
+    color: var(--black) !important;
+}
+.feature-list li,
+.mobile-section,
+.morphic-section,
+.tickid-section,
+.policy-section {
+    border-color: var(--line) !important;
+}
+.morphic-arrow {
+    color: var(--red) !important;
+}
+.morphic-match-box,
+.county-status.sensitized {
+    background: #fff5f5 !important;
+    border: 1.5px solid var(--red) !important;
+    color: var(--red) !important;
+}
+.county-score,
+.result-item {
+    background: #f3f4f6 !important;
+    color: var(--black) !important;
+}
+.result-species,
+.timeline-event {
+    color: var(--black) !important;
+}
+.footer {
+    background: var(--sheet) !important;
+    border-top: 2px solid var(--line-strong) !important;
+}
+.footer-text a,
+.footer-links a:hover {
+    color: var(--red) !important;
+}
+.footer-links a {
+    color: var(--black) !important;
+}
+.btn {
+    border-radius: 0 !important;
+}
+.btn-primary {
+    box-shadow: 5px 5px 0 var(--black);
+}
+.btn-primary:hover {
+    transform: translate(-2px, -2px) !important;
+    background: var(--red) !important;
+    box-shadow: 8px 8px 0 var(--black);
+}
+@media (max-width: 760px) {
+    .header { align-items: flex-start; gap: 1rem; flex-direction: column; }
+    .header-right { flex-wrap: wrap; }
+    .stats-bar { flex-direction: column; }
+    .stat-item { border-right: 0; border-bottom: 1.5px solid var(--line-strong); }
+    .stat-item:last-child { border-bottom: 0; }
+}
+
+</style>
 </head>
 <body>
     <header class="header">
-        <div class="logo">ARBITER <span>× BITE Act</span></div>
+        <div class="logo">
+            <span class="brand-word">Actual General Intelligence</span>
+            <span class="brand-sub">ARBITER · Vector-Borne Disease</span>
+        </div>
         <div class="header-right">
             <div class="live-indicator">
                 <span class="live-dot"></span>
                 LIVE API
             </div>
-            <div class="bill-badge">H.R. 4980 | 119TH CONGRESS</div>
+            <a class="contact-cta" href="mailto:joel@actualgeneralintelligence.com?subject=ARBITER%20Vector-Borne%20Disease%20Inquiry">Contact</a><div class="bill-badge">H.R. 4980 | 119TH CONGRESS</div>
         </div>
     </header>
     
     <section class="hero">
-        <div class="hero-label">Stigmergic Intelligence for Vector-Borne Disease Prevention</div>
-        <h1>The swarm sees what <em>no observer can.</em></h1>
-        <p class="hero-sub">Six independent data streams. No single source sees the outbreak coming. But cumulative coherence across all six detects the pattern before the first human case. This is what AI early warning actually looks like.</p>
+        <div class="hero-label">Actual General Intelligence · ARBITER Applied Research</div>
+        <h1>Vector-borne disease signals, ranked <em>before the case count rises.</em></h1>
+        <p class="hero-sub">ARBITER measures coherence across weather, wildlife, veterinary, public-health, land-use, and citizen-report signals to surface outbreak risk before any single observer has the full picture.</p>
         
         <div class="stats-bar">
             <div class="stat-item">
@@ -1343,10 +1697,10 @@
     <main class="main">
         <!-- Scenario Selector -->
         <div class="scenario-selector">
-            <button class="scenario-btn active" onclick="loadScenario('outbreak')">🚨 Outbreak Imminent</button>
-            <button class="scenario-btn" onclick="loadScenario('elevated')">⚠️ Elevated Risk</button>
-            <button class="scenario-btn" onclick="loadScenario('normal')">✓ Normal Season</button>
-            <button class="scenario-btn" onclick="loadScenario('custom')">✏️ Custom Scenario</button>
+            <button class="scenario-btn active" onclick="loadScenario('outbreak')">Outbreak Imminent</button>
+            <button class="scenario-btn" onclick="loadScenario('elevated')">Elevated Risk</button>
+            <button class="scenario-btn" onclick="loadScenario('normal')">Normal Season</button>
+            <button class="scenario-btn" onclick="loadScenario('custom')">Custom Scenario</button>
         </div>
         
         <!-- Scenario Box -->
@@ -1359,9 +1713,9 @@
                 </div>
                 <p class="scenario-desc" id="scenarioDesc">It's May 2026. No confirmed Lyme cases yet this season. But six independent data streams are showing concerning activity. Each observer has a partial view. Can ARBITER detect the outbreak before it happens?</p>
                 <div class="scenario-meta">
-                    <span id="scenarioLocation">📍 Sussex County, NJ</span>
-                    <span id="scenarioDate">📅 May 2026</span>
-                    <span id="scenarioCases">🏥 0 confirmed cases</span>
+                    <span id="scenarioLocation">Sussex County, NJ</span>
+                    <span id="scenarioDate">May 2026</span>
+                    <span id="scenarioCases">0 confirmed cases</span>
                 </div>
             </div>
         </div>
@@ -1423,10 +1777,10 @@
         <!-- Run Analysis -->
         <div class="run-section">
             <button class="btn btn-primary btn-run" id="runSwarm" onclick="runSwarmAnalysis()">
-                ▶ Run Swarm Analysis
+                Run Swarm Analysis
             </button>
             <button class="btn btn-secondary" onclick="resetAnalysis()">
-                ↺ Reset
+                Reset
             </button>
         </div>
         
@@ -1468,7 +1822,7 @@
                                     <strong>High risk zone detected.</strong> You've entered an area with elevated tick-borne disease risk based on current conditions.
                                 </div>
                                 <div class="alert-meta">
-                                    <span>📍 Stokes State Forest</span>
+                                    <span>Stokes State Forest</span>
                                     <span>Just now</span>
                                 </div>
                                 <div class="alert-coherence">
@@ -1588,7 +1942,7 @@
             
             <div class="run-section">
                 <button class="btn btn-primary" onclick="runPatternTransfer()">
-                    ▶ Detect Pattern Transfer
+                    Detect Pattern Transfer
                 </button>
             </div>
             
@@ -1622,7 +1976,7 @@
                     <textarea class="tickid-textarea" id="tickDescription" placeholder="Describe size, color, markings, where found, host animal, behavior...">Small black tick, found on dog after hiking in NJ pine barrens, about the size of a sesame seed, dark reddish-brown body with black legs</textarea>
                     
                     <button class="btn btn-primary" style="width: 100%;" onclick="runTickID()">
-                        🔬 Identify Tick
+                        Identify Tick
                     </button>
                 </div>
                 
@@ -1652,7 +2006,7 @@
             
             <div class="run-section">
                 <button class="btn btn-primary" onclick="runPolicyAnalysis()">
-                    ▶ Analyze Policy Coherence
+                    Analyze Policy Coherence
                 </button>
             </div>
             
@@ -1663,16 +2017,17 @@
     </main>
     
     <footer class="footer">
-        <div class="footer-logo">ARBITER</div>
+        <div class="footer-logo">Actual General Intelligence</div>
         <p class="footer-text">
-            26MB Semantic Coherence Engine — <a href="https://getarbiter.dev" target="_blank">getarbiter.dev</a><br>
-            Supporting the <strong>BITE Act (H.R. 4980)</strong> | Rep. Josh Gottheimer (D-NJ-5)
+            26MB Semantic Coherence Engine — <a href="https://actualgeneralintelligence.com" target="_blank">actualgeneralintelligence.com</a><br>
+            Applied research for tick-borne disease prevention, therapeutic discovery, and early-warning infrastructure.<br>
+            Inquiries: <a href="mailto:joel@actualgeneralintelligence.com">joel@actualgeneralintelligence.com</a>
         </p>
         <div class="footer-links">
-            <a href="https://getarbiter.dev">Documentation</a>
-            <a href="https://api.arbiter.traut.ai/docs">API Reference</a>
-            <a href="https://pypi.org/project/arbiter-engine/">PyPI Package</a>
-            <a href="https://traut.ai">TRAUT Applied Research</a>
+            <a href="https://actualgeneralintelligence.com">Documentation</a>
+            <a href="mailto:joel@actualgeneralintelligence.com?subject=ARBITER%20Vector-Borne%20Disease%20Inquiry">API Reference</a>
+            <a href="mailto:joel@actualgeneralintelligence.com?subject=ARBITER%20Deployment%20Inquiry">PyPI Package</a>
+            <a href="https://actualgeneralintelligence.com">Actual General Intelligence</a>
         </div>
     </footer>
     
@@ -1685,9 +2040,9 @@
                 badge: 'OUTBREAK IMMINENT',
                 title: 'Sussex County, NJ — Outbreak Detection',
                 desc: 'It\'s May 2026. No confirmed Lyme cases yet this season. But all six data streams are showing alarming convergence. This is the pattern that precedes every major outbreak.',
-                location: '📍 Sussex County, NJ',
-                date: '📅 May 15, 2026',
-                cases: '🏥 0 confirmed (12 in neighboring county)',
+                location: 'Sussex County, NJ',
+                date: 'May 15, 2026',
+                cases: '0 confirmed (12 in neighboring county)',
                 observers: {
                     weather: 'Unseasonably warm April. Average temp 68°F (normal: 58°F). Humidity 78%. Rain events: 14 days this month, 40% above normal. Conditions optimal for tick activity, reproduction, and questing behavior.',
                     wildlife: 'White-tailed deer population up 28% from last year. Unusual early migration into suburban corridors observed via trail cameras. White-footed mouse population explosion following mild winter. Acorn mast year creating unprecedented food abundance.',
@@ -1702,9 +2057,9 @@
                 badge: 'ELEVATED RISK',
                 title: 'Morris County, NJ — Enhanced Monitoring',
                 desc: 'Spring 2026. Several indicators trending upward but not yet at outbreak threshold. Enhanced surveillance recommended.',
-                location: '📍 Morris County, NJ',
-                date: '📅 April 28, 2026',
-                cases: '🏥 3 confirmed YTD',
+                location: 'Morris County, NJ',
+                date: 'April 28, 2026',
+                cases: '3 confirmed YTD',
                 observers: {
                     weather: 'Warm spring developing. Average temp 62°F (normal: 55°F). Humidity 65%. Rain events: 8 days this month. Conditions becoming favorable for tick activity.',
                     wildlife: 'Deer population stable, slight increase from last year. Normal migration patterns observed. Mouse population within expected range following average winter.',
@@ -1719,9 +2074,9 @@
                 badge: 'NORMAL ACTIVITY',
                 title: 'Ocean County, NJ — Baseline Monitoring',
                 desc: 'Early spring 2026. All indicators within normal seasonal ranges. Standard prevention protocols appropriate.',
-                location: '📍 Ocean County, NJ',
-                date: '📅 April 10, 2026',
-                cases: '🏥 0 confirmed YTD',
+                location: 'Ocean County, NJ',
+                date: 'April 10, 2026',
+                cases: '0 confirmed YTD',
                 observers: {
                     weather: 'Typical spring weather. Average temp 52°F. Humidity 55%. Rain events: 5 days this month. Conditions not yet optimal for significant tick activity.',
                     wildlife: 'Deer population normal. No unusual migration patterns. Mouse population average following typical winter.',
@@ -1736,9 +2091,9 @@
                 badge: 'CUSTOM SCENARIO',
                 title: 'Custom Analysis',
                 desc: 'Enter your own data for each observer to analyze a custom scenario.',
-                location: '📍 Custom Location',
-                date: '📅 Custom Date',
-                cases: '🏥 Custom',
+                location: 'Custom Location',
+                date: 'Custom Date',
+                cases: 'Custom',
                 observers: {
                     weather: '',
                     wildlife: '',
@@ -1981,7 +2336,7 @@
             }
             
             btn.disabled = false;
-            btn.innerHTML = '▶ Run Swarm Analysis';
+            btn.innerHTML = 'Run Swarm Analysis';
         }
         
         // ============ PATTERN TRANSFER ============
@@ -2031,7 +2386,7 @@
             }
             
             btn.disabled = false;
-            btn.innerHTML = '▶ Detect Pattern Transfer';
+            btn.innerHTML = 'Detect Pattern Transfer';
         }
         
         // ============ TICK ID ============
@@ -2081,7 +2436,7 @@
             }
             
             btn.disabled = false;
-            btn.innerHTML = '🔬 Identify Tick';
+            btn.innerHTML = 'Identify Tick';
         }
         
         // ============ POLICY ANALYSIS ============
@@ -2129,7 +2484,7 @@
             }
             
             btn.disabled = false;
-            btn.innerHTML = '▶ Analyze Policy Coherence';
+            btn.innerHTML = 'Analyze Policy Coherence';
         }
         
         // ============ INIT ============
